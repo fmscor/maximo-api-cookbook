@@ -1,27 +1,20 @@
 {
   "info": {
     "name": "Maximo API Cookbook",
-    "description": "Recipes for the IBM Maximo REST/JSON API (Manage on MAS). Set baseUrl and siteid in the collection variables. Keep the real apikey in a Postman environment, never in this file. Requests are added as each recipe is tested.",
+    "description": "Recipes for the IBM Maximo REST/JSON API (Manage on MAS). Set baseUrl in the collection variables. Each request sends an apikey header read from {{apikey}}: keep the real key in a Postman environment, never in this file. Requests are added as each recipe is tested.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
-  "auth": {
-    "type": "apikey",
-    "apikey": [
-      { "key": "key", "value": "apikey", "type": "string" },
-      { "key": "value", "value": "{{apikey}}", "type": "string" },
-      { "key": "in", "value": "header", "type": "string" }
-    ]
-  },
   "variable": [
-    { "key": "baseUrl", "value": "https://<workspace>.manage.<instance>.<domain>/maximo" },
-    { "key": "apikey", "value": "" },
-    { "key": "siteid", "value": "BEDFORD" }
+    { "key": "baseUrl", "value": "https://<workspace>.manage.<instance>.<domain>/maximo" }
   ],
   "item": [
     {
       "name": "01 Who am I",
       "request": {
         "method": "GET",
+        "header": [
+          { "key": "apikey", "value": "{{apikey}}", "type": "text" }
+        ],
         "url": "{{baseUrl}}/api/whoami"
       }
     }

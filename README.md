@@ -28,7 +28,7 @@ Each recipe gets its link here once it's tested and published.
 New to Postman? Follow [Setting up Postman](docs/setting-up-postman.md) first.
 
 1. Import `postman/maximo-api-cookbook.postman_collection.json` into Postman. Requests are added as each recipe is published.
-2. Set the collection variables: `baseUrl` (e.g. `https://<workspace>.manage.<instance>.<domain>/maximo`) and `siteid`.
+2. Set the collection variable `baseUrl` (e.g. `https://<workspace>.manage.<instance>.<domain>/maximo`).
 3. Put your API key in a Postman environment as `apikey`.
 4. Run **01 Who am I** first. If it returns your user, you're connected.
 
