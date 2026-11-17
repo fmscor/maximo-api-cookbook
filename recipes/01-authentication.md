@@ -8,7 +8,7 @@ New to Postman? Start with [Setting up Postman](../docs/setting-up-postman.md).
 
 ## Steps
 
-1. In Manage, open the **API Keys** application and create a key for the integration user. Use a dedicated integration user, not your own login.
+1. In Manage, open the **API Keys** application and create a key for the integration user. I say integration user but if you are just testing it, you can use your own user as long as you have the appropriate access.
 2. Send the key in an `apikey` header on every request.
 
 ```http
@@ -22,7 +22,7 @@ A **200 OK** with your user's details means you're connected.
 
 ```json
 {
-  "userid": "MXINTADM",
+  "personId": "MXINTADM",
   "displayName": "Integration Admin",
   "defaultSite": "BEDFORD",
   "langcode": "EN"
@@ -33,6 +33,6 @@ A **200 OK** with your user's details means you're connected.
 
 - **401 on every call:** wrong header name. It's `apikey`, not `Authorization: Bearer`.
 - **Request never reaches Manage on a corporate network:** Postman may be using the system proxy. Untick **Settings > Proxy > Use the system proxy**.
-- **403 on an object structure:** object structure security is on by default in MAS. Grant the user access to that object structure through a security group.
+- **403 on an object structure:** object structure security is on by default in MAS Manage. Grant the user access to that object structure through a security group.
 - **Keys are secrets.** Store them in a Postman environment or a vault, never in the collection, a script or a screenshot.
 - Use `/maximo/api/...`. Examples online that use `/maximo/oslc/...` were written for older versions.

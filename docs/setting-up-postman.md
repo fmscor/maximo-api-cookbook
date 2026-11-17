@@ -33,7 +33,7 @@ Click **Send**. A **200 OK** with your user's details means Postman is ready.
 
 Below is an example of what your Postman should look like before hitting the blue Send button.
 
-![Postman with a GET request to /maximo/api/whoami and an apikey header](postman-whoami-request.png)
+![Postman with a GET request to /maximo/api/whoami and an apikey header](../images/postman-whoami-request.png)
 
 ### No response on a corporate network?
 
