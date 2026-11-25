@@ -2,7 +2,7 @@
 
 **Goal:** pull only the records and fields you need, in plain JSON.
 
-> Tested on: _not yet (draft, testing on Maximo Manage 9.0)_
+> Tested on: Maximo Manage 9.0 (sandbox with the Maximo demo data)
 
 ## The request
 
@@ -33,36 +33,59 @@ In the Postman collection this is **02 Query work orders**. The site comes from 
 
 ## Useful `oslc.where` patterns
 
+All of these returned results on the demo data:
+
 ```text
 status in ["APPR","INPRG"]
-reportdate>="2026-01-01T00:00:00-05:00"
+reportdate>="2021-01-01T00:00:00-05:00"
 description="%pump%"                     (contains "pump")
 assetnum="11430" and siteid="BEDFORD"
 ```
 
-Child fields: `oslc.select=wonum,asset.description` pulls a field from the related asset in one call.
+Child fields: `oslc.select=wonum,assetnum,asset.description` pulls a field from the related asset in the same call. It comes back nested:
+
+```json
+{ "wonum": "43041", "assetnum": "11430", "asset": { "description": "Centrifugal Pump 100GPM/60FT HD" } }
+```
 
 ## Sample response (trimmed)
+
+The first record from the request above:
 
 ```json
 {
   "member": [
     {
-      "wonum": "1012",
-      "description": "Replace pump seal",
+      "wonum": "T1228",
+      "description": "Clean bearing bracket",
       "status": "WAPPR",
-      "assetnum": "11430",
-      "href": "https://<workspace>.manage.<instance>.<domain>/maximo/api/os/mxapiwodetail/_QkVERk9SRC8xMDEy"
+      "status_description": "Waiting on approval",
+      "_rowstamp": "580653",
+      "href": "https://<workspace>.manage.<instance>.<domain>/maximo/oslc/os/mxapiwodetail/_QkVERk9SRC9UMTIyOA--",
+      "worklog_collectionref": "https://<workspace>.manage.<instance>.<domain>/maximo/oslc/os/mxapiwodetail/_QkVERk9SRC9UMTIyOA--/woworklog"
     }
   ],
-  "responseInfo": { "href": "..." }
+  "responseInfo": {
+    "nextPage": { "href": "...?pageno=2&..." },
+    "href": "...",
+    "pagenum": 1
+  }
 }
 ```
+
+Notice what's missing and what's extra:
+
+- **No `assetnum` or `reportdate`.** This work order has neither, and `lean=1` leaves empty fields out instead of sending `null`. Your code has to handle a missing key.
+- **`status_description`** comes along on its own, so you get the readable status without asking for it.
+- **`*_collectionref` links**, one per child collection (worklog, labor, materials and so on). I got 21 of them on every record, even with `oslc.select=wonum`. Skip them unless you need to follow one.
 
 Keep the `href`: it's how you update this exact record (recipe 03).
 
 ## Gotchas
 
+- **Empty values sort first when you sort descending.** On the demo data, `oslc.orderBy=-reportdate` puts the work orders with no report date at the top. To skip them, add a date filter such as `reportdate>="2000-01-01T00:00:00-05:00"`. `reportdate!="*null*"` doesn't work on a date field: it returns a 400 (BMXAA4144E, date format not valid).
+- **Demo data is old.** Most demo work orders are dated 1998 to 2021, so a "this year" date filter returns nothing. That's a valid empty result, not an error.
 - Field names in `oslc.select` and `oslc.where` are lowercase attribute names.
 - Use `oslc.select=*` only while exploring. Never use it in an integration.
 - Date filters need the full ISO format with a time zone offset.
+- Use the `href` as Maximo returns it, even though its path says `/oslc/os/` rather than `/api/os/`, and its host can differ from the one you called (on my sandbox it dropped the port).

@@ -17,7 +17,7 @@ Each recipe states the goal, the request, a sample response and the gotchas I've
 | # | Recipe | What you'll learn | Status |
 |---|---|---|---|
 | 01 | [Authentication and API keys](recipes/01-authentication.md) | Connecting to Manage with an API key, and checking who you are | Ready |
-| 02 | [Querying records](recipes/02-querying.md) | `oslc.select`, `oslc.where`, `oslc.orderBy` and `lean=1` | Testing |
+| 02 | [Querying records](recipes/02-querying.md) | `oslc.select`, `oslc.where`, `oslc.orderBy` and `lean=1` | Ready |
 | 03 | Creating and updating work orders | POST, PATCH with `x-method-override`, and changing status | Coming soon |
 | 04 | Bulk loads and paging | `x-method-override: BULK`, `oslc.pageSize` and following `nextPage` | Coming soon |
 
