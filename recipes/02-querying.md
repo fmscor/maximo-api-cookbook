@@ -92,5 +92,5 @@ Keep the `href`: it's how you update this exact record (recipe 03).
 - **Demo data is old.** Most demo work orders are dated 1998 to 2021, so a "this year" date filter returns nothing. That's a valid empty result, not an error.
 - Field names in `oslc.select` and `oslc.where` are lowercase attribute names.
 - Use `oslc.select=*` only while exploring. Never use it in an integration.
-- Date filters need the full ISO format with a time zone offset.
+- Date filters need the full ISO format with a time zone offset (for example, `reportdate>="2021-01-01T00:00:00-05:00"`).
 - Use the `href` as Maximo returns it, even though its path says `/oslc/os/` rather than `/api/os/`, and its host can differ from the one you called (on my sandbox it dropped the port).
