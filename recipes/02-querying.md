@@ -91,4 +91,4 @@ Keep the `href`: it's how you update this exact record (recipe 03).
 - **Empty values sort first when you sort descending.** `oslc.orderBy=-reportdate` puts the work orders with no report date at the top. To skip them, add a date filter such as `reportdate>="2000-01-01T00:00:00-05:00"`. `reportdate!="*null*"` doesn't work on a date field: it returns a 400 (BMXAA4144E, date format not valid).
 - Field names in `oslc.select` and `oslc.where` are lowercase attribute names.
 - Use `oslc.select=*` only while exploring. Never use it in an integration.
-- Date filters need the full ISO format with a time zone offset (for example, `reportdate>="2021-01-01T00:00:00-05:00"`).
+- **Date filters take ISO 8601 dates.** `2021-01-01`, `2021-01-01T00:00:00` and `2021-01-01T00:00:00-05:00` all work. `2021-01-01 00:00:00` (a space instead of the `T`) and `01/01/2021` return a 400 (BMXAA4144E, date format not valid). Add the offset when the exact cutoff matters, so you know which time zone it's in.
