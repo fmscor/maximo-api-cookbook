@@ -5,7 +5,8 @@
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
-    { "key": "baseUrl", "value": "https://<workspace>.manage.<instance>.<domain>/maximo" }
+    { "key": "baseUrl", "value": "https://<workspace>.manage.<instance>.<domain>/maximo" },
+    { "key": "siteid", "value": "BEDFORD" }
   ],
   "item": [
     {
@@ -16,6 +17,16 @@
           { "key": "apikey", "value": "{{apikey}}", "type": "text" }
         ],
         "url": "{{baseUrl}}/api/whoami"
+      }
+    },
+    {
+      "name": "02 Query work orders",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "apikey", "value": "{{apikey}}", "type": "text" }
+        ],
+        "url": "{{baseUrl}}/api/os/mxapiwodetail?lean=1&oslc.select=wonum,description,status,assetnum,reportdate&oslc.where=siteid=\"{{siteid}}\" and status=\"WAPPR\"&oslc.orderBy=-reportdate&oslc.pageSize=20"
       }
     }
   ]
