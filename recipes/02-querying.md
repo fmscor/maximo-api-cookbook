@@ -8,16 +8,9 @@
 
 Work orders waiting for approval at site BEDFORD, newest first:
 
-```http
-GET https://<workspace>.manage.<instance>.<domain>/maximo/api/os/mxapiwodetail?lean=1
-    &oslc.select=wonum,description,status,assetnum,reportdate
-    &oslc.where=siteid="BEDFORD" and status="WAPPR"
-    &oslc.orderBy=-reportdate
-    &oslc.pageSize=20
-apikey: <your-api-key>
-```
+![Postman GET request to /maximo/api/os/mxapiwodetail with the lean, oslc.select, oslc.where, oslc.orderBy and oslc.pageSize query params](../images/postman-query-workorders-params.png)
 
-(Shown on several lines for reading. In practice it's one URL, and tools like Postman encode the quotes and spaces for you.)
+Paste the whole URL into Postman and it splits the parameters into the **Params** tab for you, and encodes the quotes and spaces when it sends. Add the `apikey` header as in [recipe 01](01-authentication.md).
 
 In the Postman collection this is **02 Query work orders**. The site comes from the collection variable `siteid`.
 
