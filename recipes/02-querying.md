@@ -30,7 +30,7 @@ In the Postman collection this is **02 Query work orders**. The site comes from 
 | Parameter | Purpose |
 |---|---|
 | `lean=1` | Plain JSON, no `spi:`/`rdf:` prefixes. Use it on every call |
-| `oslc.select` | Only the fields you list. Without it you get every field, which is slow |
+| `oslc.select` | Only the fields you list. Without it you get every field, which can be slow |
 | `oslc.where` | The filter. Strings in double quotes, combine with `and` / `or` |
 | `oslc.orderBy` | `-field` sorts descending, `%2Bfield` ascending. A sign is required: `+field` and `field` alone both return a 400 (see Gotchas) |
 | `oslc.pageSize` | Records per page (see recipe 04 for paging) |
@@ -89,8 +89,6 @@ Keep the `href`: it's how you update this exact record (recipe 03).
 
 - **Ascending sort needs `%2B`, not `+`.** In a URL a bare `+` means a space, so `oslc.orderBy=+statusdate` returns a 400 (BMXAA8744E, query not parsed). Postman sends the `+` as is, so typing it in the Params tab fails the same way. Write `oslc.orderBy=%2Bstatusdate`. Leaving the sign off (`oslc.orderBy=statusdate`) gives the same 400.
 - **Empty values sort first when you sort descending.** On the demo data, `oslc.orderBy=-reportdate` puts the work orders with no report date at the top. To skip them, add a date filter such as `reportdate>="2000-01-01T00:00:00-05:00"`. `reportdate!="*null*"` doesn't work on a date field: it returns a 400 (BMXAA4144E, date format not valid).
-- **Demo data is old.** Most demo work orders are dated 1998 to 2021, so a "this year" date filter returns nothing. That's a valid empty result, not an error.
 - Field names in `oslc.select` and `oslc.where` are lowercase attribute names.
 - Use `oslc.select=*` only while exploring. Never use it in an integration.
 - Date filters need the full ISO format with a time zone offset (for example, `reportdate>="2021-01-01T00:00:00-05:00"`).
-- Use the `href` as Maximo returns it, even though its path says `/oslc/os/` rather than `/api/os/`, and its host can differ from the one you called (on my sandbox it dropped the port).
