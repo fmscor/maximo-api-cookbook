@@ -32,7 +32,7 @@ In the Postman collection this is **02 Query work orders**. The site comes from 
 | `lean=1` | Plain JSON, no `spi:`/`rdf:` prefixes. Use it on every call |
 | `oslc.select` | Only the fields you list. Without it you get every field, which is slow |
 | `oslc.where` | The filter. Strings in double quotes, combine with `and` / `or` |
-| `oslc.orderBy` | `-field` sorts descending, `+field` ascending. The sign is required, and in a URL the `+` must be written as `%2B` (see Gotchas) |
+| `oslc.orderBy` | `-field` sorts descending, `%2Bfield` ascending. A sign is required: `+field` and `field` alone both return a 400 (see Gotchas) |
 | `oslc.pageSize` | Records per page (see recipe 04 for paging) |
 
 ## Useful `oslc.where` patterns
