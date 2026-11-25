@@ -16,6 +16,12 @@ GET https://<workspace>.manage.<instance>.<domain>/maximo/api/whoami
 apikey: <your-api-key>
 ```
 
+For example: `https://main.manage.inst1.apps.example.com/maximo/api/whoami`
+
+Below is what your Postman should look like before you click the blue **Send** button.
+
+![Postman with a GET request to /maximo/api/whoami and an apikey header](../images/postman-whoami-request.png)
+
 A **200 OK** with your user's details means you're connected.
 
 ## Sample response (trimmed)

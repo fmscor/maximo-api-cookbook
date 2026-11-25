@@ -8,9 +8,20 @@
 
 Work orders waiting for approval at site BEDFORD, newest first:
 
-![Postman GET request to /maximo/api/os/mxapiwodetail with the lean, oslc.select, oslc.where, oslc.orderBy and oslc.pageSize query params](../images/postman-query-workorders-params.png)
+```http
+GET https://<workspace>.manage.<instance>.<domain>/maximo/api/os/mxapiwodetail?lean=1&oslc.select=wonum,description,status,assetnum,reportdate&oslc.where=siteid="BEDFORD" and status="WAPPR"&oslc.orderBy=-reportdate&oslc.pageSize=20
+apikey: <your-api-key>
+```
 
-Paste the whole URL into Postman and it splits the parameters into the **Params** tab for you, and encodes the quotes and spaces when it sends. Add the `apikey` header as in [recipe 01](01-authentication.md).
+For example:
+
+```
+https://main.manage.inst1.apps.example.com/maximo/api/os/mxapiwodetail?lean=1&oslc.select=wonum,description,status,assetnum,reportdate&oslc.where=siteid="BEDFORD" and status="WAPPR"&oslc.orderBy=-reportdate&oslc.pageSize=20
+```
+
+Paste the URL into Postman and it splits the parameters into the **Params** tab for you, and encodes the quotes and spaces when it sends. Add the `apikey` header as in [recipe 01](01-authentication.md). Below is what your Postman should look like before you click the blue **Send** button.
+
+![Postman GET request to /maximo/api/os/mxapiwodetail with the lean, oslc.select, oslc.where, oslc.orderBy and oslc.pageSize query params](../images/postman-query-workorders-params.png)
 
 In the Postman collection this is **02 Query work orders**. The site comes from the collection variable `siteid`.
 
