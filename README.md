@@ -28,17 +28,18 @@ Each recipe gets its link here once it's tested and published.
 New to Postman? Follow [Setting up Postman](docs/setting-up-postman.md) first.
 
 1. Import `postman/maximo-api-cookbook.postman_collection.json` into Postman. Requests are added as each recipe is published.
-2. Set the collection variable `baseUrl` (e.g. `https://<workspace>.manage.<instance>.<domain>/maximo`).
+2. Set the collection variables: `baseUrl` (e.g. `https://<workspace>.manage.<instance>.<domain>/maximo`) and `siteid` (`BEDFORD` for the demo data, or your own site).
 3. Put your API key in a Postman environment as `apikey`.
 4. Run **01 Who am I** first. If it returns your user, you're connected.
+5. Then try **02 Query work orders** to see the work orders waiting for approval at your site.
 
 Never commit your API key. Keep it in a Postman environment or a local variable, not in the collection.
 
 ## Conventions
 
-- Every recipe is written and tested for Maximo Manage on MAS. Coming from Maximo 7.6? The [glossary](glossary.md) maps the terms, but don't assume the requests work as-is on 7.6.1.x.
-- Examples use the Maximo demo data (site `BEDFORD`). Replace it with your own site.
-- All requests use `lean=1`, which returns plain JSON without namespace prefixes.
+- Every recipe is written for Maximo Manage on MAS, and its "Tested on" line says where I ran it. Coming from Maximo 7.6? The [glossary](glossary.md) maps the terms, but don't assume the requests work as-is on 7.6.1.x.
+- Examples use the Maximo demo data (site `BEDFORD`). Replace it with your own site (in Postman, the `siteid` variable).
+- All requests use `lean=1`, which returns plain JSON without namespace prefixes and leaves empty fields out of the response.
 - Object structures are the out-of-the-box ones (`MXAPIWODETAIL`, `MXAPIASSET`). In MAS, the user behind the API key needs object structure security grants for each one.
 - Test in a non-production environment first.
 
