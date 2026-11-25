@@ -88,7 +88,7 @@ Keep the `href`: it's how you update this exact record (recipe 03).
 ## Gotchas
 
 - **Ascending sort needs `%2B`, not `+`.** In a URL a bare `+` means a space, so `oslc.orderBy=+statusdate` returns a 400 (BMXAA8744E, query not parsed). Postman sends the `+` as is, so typing it in the Params tab fails the same way. Write `oslc.orderBy=%2Bstatusdate`. Leaving the sign off (`oslc.orderBy=statusdate`) gives the same 400.
-- **Empty values sort first when you sort descending.** On the demo data, `oslc.orderBy=-reportdate` puts the work orders with no report date at the top. To skip them, add a date filter such as `reportdate>="2000-01-01T00:00:00-05:00"`. `reportdate!="*null*"` doesn't work on a date field: it returns a 400 (BMXAA4144E, date format not valid).
+- **Empty values sort first when you sort descending.** `oslc.orderBy=-reportdate` puts the work orders with no report date at the top. To skip them, add a date filter such as `reportdate>="2000-01-01T00:00:00-05:00"`. `reportdate!="*null*"` doesn't work on a date field: it returns a 400 (BMXAA4144E, date format not valid).
 - Field names in `oslc.select` and `oslc.where` are lowercase attribute names.
 - Use `oslc.select=*` only while exploring. Never use it in an integration.
 - Date filters need the full ISO format with a time zone offset (for example, `reportdate>="2021-01-01T00:00:00-05:00"`).
